@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class App {
-
     public static void main(String[] args) {
         SpringApplication.run(App.class); // ioc container creation and runs the embedded tomcat server
     }
 }
+ 

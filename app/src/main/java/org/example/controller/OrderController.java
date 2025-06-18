@@ -1,0 +1,36 @@
+package org.example.controller;
+import org.example.Service.OrderService;
+import org.example.model.Order;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("api/orders")
+public class OrderController {
+    private final OrderService orderService;
+    public OrderController(OrderService orderService){
+        this.orderService=orderService;
+    }
+    @PostMapping
+    public ResponseEntity<Order> createOrder(@RequestBody Order order){
+        Order saved= orderService.createOrder(order);
+        return ResponseEntity.status(201).body(saved);
+    }
+    @GetMapping
+    public List<Order> getAllOrders(){
+        return orderService.getAllOrders();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrderById(long id){
+        return orderService.getOrderById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @GetMapping("/sales/{salesId}")
+    public ResponseEntity<List<Order>> getOrdersBySalesPerson(long salesId){
+        List<Order> orders=orderService.getOrdersBySalesPersonId(salesId);
+        return ResponseEntity.ok(orders);
+    }
+}
+
