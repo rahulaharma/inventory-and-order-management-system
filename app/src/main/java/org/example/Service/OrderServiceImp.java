@@ -28,8 +28,10 @@ public class OrderServiceImp implements OrderService{
         return orderRepo.findAll();
     }
     @Override
-    public Optional<Order> getOrderById(long id) {
-        return orderRepo.findById(id);
+    public Order getOrderById(long id) {
+
+        return orderRepo.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("Order not found with id:"+id));
     }
 
     @Override

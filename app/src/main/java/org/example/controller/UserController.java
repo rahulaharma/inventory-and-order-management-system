@@ -29,7 +29,7 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> getUserByUserName(@PathVariable long id){
+    public ResponseEntity<Void> deleteUserById(@PathVariable long id){
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
