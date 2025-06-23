@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/inventory")
+@CrossOrigin(origins = "http://localhost:1234")
 public class InventoryController {
     private final InventoryService inventoryService;
     public InventoryController(InventoryService inventoryService){
