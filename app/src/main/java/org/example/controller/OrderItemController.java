@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.Service.OrderItemService;
 import org.example.Service.OrderService;
 import org.example.model.Order;
@@ -24,9 +25,11 @@ public class OrderItemController {
         return ResponseEntity.status(201).body(saved);
     }
     @GetMapping("/order/{orderId}")
-    public List<OrderItem> getItemsByOrder(@PathVariable Long orderId){
-        Order order=orderService.getOrderById(orderId);
-        return orderItemService.getItemsByOrder(order);
+    public ResponseEntity<List<OrderItem>> getItemsByOrder(@PathVariable Long orderId){
+        Order order=orderService.getOrderById(orderId)
+                .orElseThrow(()->new EntityNotFoundException("Order not found for order id:"+orderId));
+        List<OrderItem> items = orderItemService.getItemsByOrder(order);
+        return ResponseEntity.ok(items);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long id){

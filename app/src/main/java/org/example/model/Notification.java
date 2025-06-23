@@ -9,7 +9,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String message;
-    private boolean isRead=false;
+    private boolean readStatus=false;
     private LocalDateTime createdAt;
     @ManyToOne
     @JoinColumn
@@ -35,12 +35,12 @@ public class Notification {
         this.createdAt = createdAt;
     }
 
-    public boolean isRead() {
-        return isRead;
+    public boolean isReadStatus() {
+        return readStatus;
     }
 
-    public void setRead(boolean read) {
-        isRead = read;
+    public void setReadStatus(boolean readStatus) {
+        this.readStatus = readStatus;
     }
 
     public void setMessage(String message) {

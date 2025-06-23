@@ -23,7 +23,7 @@ public class NotificationServiceImp implements NotificationService{
 
     @Override
     public List<Notification> getUnreadNotifications(User user) {
-        return notificationRepo.findByRecipientAndReadFalse(user);
+        return notificationRepo.findByRecipientAndReadStatusFalse(user);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class NotificationServiceImp implements NotificationService{
         notification.setRecipient(user);
         notification.setMessage(message);
         notification.setCreatedAt(LocalDateTime.now());
-        notification.setRead(false);
+        notification.setReadStatus(false);
         return notificationRepo.save(notification);
     }
 
@@ -40,7 +40,7 @@ public class NotificationServiceImp implements NotificationService{
     public void markAsRead(Long notificationId) {
         Notification notification=notificationRepo.findById(notificationId)
                 .orElseThrow(()->new EntityNotFoundException("Notification not found for id:"+notificationId));
-        notification.setRead(true);
+        notification.setReadStatus(true);
         notificationRepo.save(notification);
     }
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface OrderService {
     Order createOrder(Order order);
     List<Order> getAllOrders();
-    Order getOrderById(long id);
+    Optional<Order> getOrderById(long id);
     List<Order> getOrdersBySalesPersonId(Long salesPersonId);
     List<Order> getOrdersByCustomerId(Long customerId);
     Order updateOrderStatus(Long orderId, String status);

@@ -1,5 +1,6 @@
 package org.example.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="sales_person_id")
     private User salesPerson;
-    @OneToMany
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderItem> orderItems=new ArrayList<>();
     private String status; //NEW ,PACKED ,SHIPPED
     private LocalDateTime createdAt;

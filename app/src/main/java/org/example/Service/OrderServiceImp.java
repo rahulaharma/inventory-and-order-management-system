@@ -3,6 +3,7 @@ package org.example.Service;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.model.Customer;
 import org.example.model.Order;
+import org.example.model.OrderItem;
 import org.example.model.User;
 import org.example.repository.CustomerRepo;
 import org.example.repository.OrderRepo;
@@ -10,28 +11,41 @@ import org.example.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class OrderServiceImp implements OrderService{
-    @Autowired
-    private OrderRepo orderRepo;
-    private UserRepo userRepo;
-    private CustomerRepo customerRepo;
+    private final OrderRepo orderRepo;
+    private final UserRepo userRepo;
+    private final CustomerRepo customerRepo;
+    public OrderServiceImp(OrderRepo orderRepo, UserRepo userRepo, CustomerRepo customerRepo) {
+        this.orderRepo = orderRepo;
+        this.userRepo = userRepo;
+        this.customerRepo = customerRepo;
+    }
     @Override
     public Order createOrder(Order order) {
-        return orderRepo.save(order);
+        try {
+            order.setCreatedAt(LocalDateTime.now());
+            for (OrderItem item : order.getOrderItems()) {
+                item.setOrder(order);
+            }
+            return orderRepo.save(order);
+        }
+        catch(Exception e){
+            e.printStackTrace(); // or use a logger
+            throw e;
+        }
     }
     @Override
     public List<Order> getAllOrders() {
         return orderRepo.findAll();
     }
     @Override
-    public Order getOrderById(long id) {
-
-        return orderRepo.findById(id)
-                .orElseThrow(()->new EntityNotFoundException("Order not found with id:"+id));
+    public Optional<Order> getOrderById(long id) {
+        return orderRepo.findById(id);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package org.example.controller;
 import org.example.Service.OrderService;
 import org.example.model.Order;
+import org.example.model.OrderItem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(long id){
+    public ResponseEntity<Order> getOrderById(@PathVariable long id){
         return orderService.getOrderById(id).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
