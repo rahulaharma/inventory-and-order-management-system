@@ -5,6 +5,8 @@ import org.example.model.Inventory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/inventory")
 @CrossOrigin(origins = "http://localhost:1234")
@@ -13,9 +15,9 @@ public class InventoryController {
     public InventoryController(InventoryService inventoryService){
         this.inventoryService=inventoryService;
     }
-    @GetMapping("/product/{productId}")
-    public ResponseEntity<Inventory> getInventoryByProductId(@PathVariable long productId){
-        Inventory inventory=inventoryService.getInventoryByProductId(productId);
+    @GetMapping
+    public ResponseEntity<List<Inventory>> getInventory(){
+        List<Inventory> inventory=inventoryService.getInventory();
         return ResponseEntity.ok(inventory);
     }
     @PutMapping("/product/{productId}")

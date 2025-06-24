@@ -1,5 +1,7 @@
 package org.example.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class Product {
     private double price;
     private String sku;
     @OneToOne(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     private Inventory inventory;
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
     private final List<OrderItem> orderItems=new ArrayList<>();
