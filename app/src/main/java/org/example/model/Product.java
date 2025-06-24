@@ -2,6 +2,9 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Product {
     @Id
@@ -11,8 +14,10 @@ public class Product {
     private String description;
     private double price;
     private String sku;
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
     private Inventory inventory;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    private final List<OrderItem> orderItems=new ArrayList<>();
 
     public long getId() {
         return id;
