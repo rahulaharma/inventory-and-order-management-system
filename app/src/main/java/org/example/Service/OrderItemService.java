@@ -10,6 +10,4 @@ public interface OrderItemService {
     public List<OrderItem> getItemsByOrder(Order order);
     public OrderItem saveOrderItem(OrderItem item);
     public void deleteOrderItem(Long itemId);
-
-
 }

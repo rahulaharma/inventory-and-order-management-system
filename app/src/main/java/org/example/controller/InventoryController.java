@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.example.Service.InventoryService;
 import org.example.model.Inventory;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,9 @@ public class InventoryController {
         Inventory updatedInventory=inventoryService.updateInventory(productId,quantity);
         return ResponseEntity.ok(updatedInventory);
     }
-
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<Inventory> findByProductId(@PathVariable long productId) {
+        Inventory inventory = inventoryService.findByProductId(productId);
+        return ResponseEntity.ok(inventory);
+    }
 }

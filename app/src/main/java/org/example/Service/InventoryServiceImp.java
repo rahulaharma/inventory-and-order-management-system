@@ -23,5 +23,10 @@ public class InventoryServiceImp implements InventoryService{
     public List<Inventory> getInventory() {
         return inventoryRepo.findAll();
     }
+    @Override
+    public Inventory findByProductId(long productId){
+        return inventoryRepo.findByProductId(productId).
+                orElseThrow(()->new EntityNotFoundException("Inventory not found for product ID"+productId));
+    }
 
 }

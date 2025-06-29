@@ -8,4 +8,5 @@ import java.util.List;
 public interface InventoryService{
     Inventory updateInventory(long productId,int newQuantity);
     List<Inventory> getInventory();
+    Inventory findByProductId(long productId);
 }
