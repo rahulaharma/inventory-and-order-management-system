@@ -35,5 +35,11 @@ public class OrderController {
         List<Order> orders=orderService.getOrdersBySalesPersonId(salesId);
         return ResponseEntity.ok(orders);
     }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable long id,@RequestBody String status){
+        Order order=orderService.updateOrderStatus(id,status);
+        return ResponseEntity.ok(order);
+    }
 }
 
