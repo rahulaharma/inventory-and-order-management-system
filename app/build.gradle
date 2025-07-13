@@ -8,8 +8,8 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'org.springframework.boot' version '3.2.4'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.springframework.boot' version '3.5.3'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 repositories {
@@ -26,6 +26,14 @@ dependencies {
 
     //MySQL jdbc driver
     implementation 'mysql:mysql-connector-java:8.0.33'
+
+    //spring-security
+    implementation "org.springframework.boot:spring-boot-starter-security"
+
+    implementation "io.jsonwebtoken:jjwt-api:0.12.6"
+    implementation"io.jsonwebtoken:jjwt-impl:0.12.6"
+    implementation "io.jsonwebtoken:jjwt-jackson:0.12.6"
+
 
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
