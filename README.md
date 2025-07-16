@@ -5,6 +5,12 @@ This is the backend for a comprehensive Inventory and Order Management System, b
 
 The application provides a robust, secure, and scalable RESTful API to manage products, inventory levels, customers, and sales orders. It features JWT-based authentication and a clear, service-oriented architecture to ensure maintainability and separation of concerns.
 
+You can access frontend for the same here 
+```bash
+https://github.com/rahulaharma/inventory-order-management-frontend
+```
+
+
 ---
 
 ## ✨ Key Features
