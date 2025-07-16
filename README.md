@@ -54,8 +54,8 @@ Follow these steps to get the development environment running locally.
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
-cd <repository-directory>
+git clone <https://github.com/rahulaharma/inventory-and-order-management-system>
+cd <inventory-and-order-management-system>
 ```
 
 ### 2. Configure the Database
