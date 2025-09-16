@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/roles")
-@CrossOrigin(origins = "http://localhost:1234")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RoleController {
     private final RoleService roleService;
     public RoleController(RoleService roleService){

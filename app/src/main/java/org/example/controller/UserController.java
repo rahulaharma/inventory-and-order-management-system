@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.Service.UserService;
+import org.example.model.LoginResponse;
 import org.example.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
-@CrossOrigin(origins = "http://localhost:1234")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService){
@@ -18,13 +19,18 @@ public class UserController {
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user){
+        System.out.println("-----------------------------USER IS REGISTEING!!!!!!!!!!!!!!!!!!!!-------------------------------------------");
 
         return userService.registerUser(user);
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody User user){
-        return userService.verifyUser(user);
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody User user){
+        System.out.println("-----------------------------USER LOGING!!!!!!!!!!!!!!!!!!!!-------------------------------------------");
+
+        String token=userService.verifyUser(user);
+        return ResponseEntity.ok(new LoginResponse(token));
+
     }
 
 

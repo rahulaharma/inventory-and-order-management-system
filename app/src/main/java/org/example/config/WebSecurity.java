@@ -3,6 +3,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,10 +26,16 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf(csrf->csrf.disable()).
+        return httpSecurity.cors(Customizer.withDefaults()).
+                csrf(csrf->csrf.disable()).
                 authorizeHttpRequests(
-                        request-> request.requestMatchers("/register","/login").
+                        request-> request.
+                                requestMatchers("/api/register", "/api/login", "/register", "/login").
                                 permitAll().
+                                requestMatchers("/api/products/**","/api/orders/**", "/api/customers/**").
+                                hasAnyRole("ADMIN","SALESSTAFF").
+                                requestMatchers("/api/inventory/**").
+                                hasAnyRole("ADMIN","WAREHOUSESTAFF").
                                 anyRequest().
                                 authenticated()
                 ).
