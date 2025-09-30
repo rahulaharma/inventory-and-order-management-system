@@ -30,6 +30,7 @@ public class WebSecurity {
         this.userDetailsService=userDetailsService;
         this.jwtFilter = jwtFilter;
     }
+    @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration=new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173"));
@@ -42,7 +43,7 @@ public class WebSecurity {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.cors(Customizer.withDefaults()).
+        return httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource())).
                 csrf(csrf->csrf.disable()).
                 authorizeHttpRequests(
                         request-> request.
