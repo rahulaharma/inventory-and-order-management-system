@@ -5,8 +5,10 @@ package org.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
+@EnableAsync
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class); // // application bootstrapping ,component scan and enables autoconfigrution ioc container creation and runs the embedded tomcat server

@@ -4,9 +4,11 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.model.Inventory;
 import org.example.model.OrderItem;
 import org.example.model.Product;
+import org.example.model.User;
 import org.example.repository.InventoryRepo;
 import org.example.repository.OrderItemRepo;
 import org.example.repository.ProductRepo;
+import org.example.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,13 @@ public class ProductServiceImp implements ProductService{
     private final ProductRepo productRepo;
     private final OrderItemRepo orderItemRepo;
     private final InventoryRepo inventoryRepo;
+    private final ProductNotificationService productNotificationService;
 
-    public ProductServiceImp(ProductRepo productRepo, OrderItemRepo orderItemRepo,InventoryRepo inventoryRepo) {
+    public ProductServiceImp(ProductRepo productRepo, OrderItemRepo orderItemRepo,InventoryRepo inventoryRepo,ProductNotificationService productNotificationService){
         this.productRepo = productRepo;
         this.orderItemRepo = orderItemRepo;
         this.inventoryRepo=inventoryRepo;
+        this.productNotificationService=productNotificationService;
     }
     @Override
     public Product createProduct(Product product) {
@@ -30,6 +34,8 @@ public class ProductServiceImp implements ProductService{
         inventory.setProduct(savedproduct);
         inventory.setQuantityAvailable(0);
         inventoryRepo.save(inventory);
+
+        productNotificationService.sendNewProductNotification(savedproduct);
         return savedproduct;
     }
     @Override
