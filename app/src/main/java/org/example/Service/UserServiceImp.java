@@ -33,6 +33,7 @@ public class UserServiceImp implements UserService{
     public User registerUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         String roleName=user.getRole().getName();
+        System.out.println(roleName);
         Role userRole=roleRepo.findByName(roleName).
                 orElseThrow(()->new RuntimeException("Error:Role not found"));
         user.setRole(userRole);

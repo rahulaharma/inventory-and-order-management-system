@@ -32,18 +32,17 @@ public class UserController {
         return ResponseEntity.ok(new LoginResponse(token));
 
     }
-
-
+    @GetMapping
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
 
     /*@PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
         User saved=userService.registerUser(user);
         return ResponseEntity.status(201).body(saved);
     }
-    @GetMapping
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
-    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable long id){
         return userService.getUserById(id).map(ResponseEntity::ok)

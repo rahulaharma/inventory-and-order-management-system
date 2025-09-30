@@ -32,10 +32,14 @@ public class WebSecurity {
                         request-> request.
                                 requestMatchers("/api/register", "/api/login", "/register", "/login").
                                 permitAll().
-                                requestMatchers("/api/products/**","/api/orders/**", "/api/customers/**").
-                                hasAnyRole("ADMIN","SALESSTAFF").
+                                requestMatchers("/api/users").
+                                hasAnyAuthority("ROLE_ADMIN", "ROLE_SALESSTAFF").
+                                requestMatchers("/api/products/**").
+                                hasAnyAuthority("ROLE_ADMIN","ROLE_SALESSTAFF", "ROLE_WAREHOUSESTAFF").
+                                requestMatchers("/api/orders/**", "/api/customers/**").
+                                hasAnyAuthority("ROLE_ADMIN","ROLE_SALESSTAFF").
                                 requestMatchers("/api/inventory/**").
-                                hasAnyRole("ADMIN","WAREHOUSESTAFF").
+                                hasAnyAuthority("ROLE_ADMIN","ROLE_WAREHOUSESTAFF").
                                 anyRequest().
                                 authenticated()
                 ).
