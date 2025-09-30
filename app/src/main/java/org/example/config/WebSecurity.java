@@ -38,6 +38,9 @@ public class WebSecurity {
                                 hasAnyAuthority("ROLE_ADMIN","ROLE_SALESSTAFF", "ROLE_WAREHOUSESTAFF").
                                 requestMatchers("/api/orders/**", "/api/customers/**").
                                 hasAnyAuthority("ROLE_ADMIN","ROLE_SALESSTAFF").
+                                // Allow SALESSTAFF to view inventory (read-only)
+                                requestMatchers(org.springframework.http.HttpMethod.GET, "/api/inventory/**").
+                                hasAnyAuthority("ROLE_ADMIN", "ROLE_WAREHOUSESTAFF", "ROLE_SALESSTAFF").
                                 requestMatchers("/api/inventory/**").
                                 hasAnyAuthority("ROLE_ADMIN","ROLE_WAREHOUSESTAFF").
                                 anyRequest().
