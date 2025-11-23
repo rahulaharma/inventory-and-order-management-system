@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController // Controller+response body , only return the data not the view name
 @RequestMapping("/api/customers")
-@CrossOrigin(origins = "http://localhost:5173")// ensures that the request from different origions are applicable
 public class CustomerController {
     private final CustomerService customerService;
     public CustomerController(CustomerService customerService){
